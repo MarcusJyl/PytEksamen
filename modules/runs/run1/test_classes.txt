@@ -1,0 +1,3 @@
+["Cassin's Kingbird" 'Chipping Sparrow (Breeding)' "Clark's Nutcracker"
+ 'Eastern Phoebe' 'Juniper Titmouse' 'Osprey' "Vaux's Swift" 'Verdin'
+ 'Whimbrel' 'Yellow-billed Magpie']
