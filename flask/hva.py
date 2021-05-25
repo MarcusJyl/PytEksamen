@@ -1,20 +1,64 @@
 #!flask/bin/python
-import birdScraber
-from flask import Flask, render_template, request
+import os
+import birdScraper
+from flask import Flask, flash, request, redirect, url_for, render_template
+from werkzeug.utils import secure_filename
+
+UPLOAD_FOLDER = 'PytEksamen/flask/uploads'
+ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
 app = Flask(__name__)
 
-@app.route('/')
-def home():
-    return render_template('home.html') # Render home.html
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-@app.route('/classify',methods=['GET'])
+@app.route('/', methods=['GET', 'POST'])
+def upload_file():
+    if request.method == 'POST':
+        # check if the post request has the file part
+        if 'file' not in request.files:
+            flash('No file part')
+            return redirect(request.url)
+        file = request.files['file']
+        # if user does not select file, browser also
+        # submit an empty part without filename
+        if file.filename == '':
+            flash('No selected file')
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(UPLOAD_FOLDER, filename))
+            return redirect("output" + url_for('upload_file',
+                                    filename=filename))
+    return '''
+    <!doctype html>
+    <title>Upload new File</title>
+    <h1>Upload new File</h1>
+    <form method=post enctype=multipart/form-data>
+      <input type=file name=file>
+      <input type=submit value=Upload>
+    </form>
+    '''
+
+
+#@app.route('/index')
+#def home():
+#    return render_template('index.html') # Render home.html
+
+#/@app.route('/uploader', methods = ['GET', 'POST'])
+#def upload_file():
+  # if request.method == 'POST':
+  #    f = request.files['file']
+ #     f.save(f.filename)
+#      return redirect()
+
+@app.route('/output/',methods=['GET'])
 def classify_type():
     
-    bird_url = request.args.get('bird')
-    print(bird_url)
+    filename = os.path.join(UPLOAD_FOLDER, request.args.get('filename'))
         # Get the output from the classification model
-    variety = birdScraber.modelFinal(bird_url)
+    variety = birdScraper.modelFinal(filename)
 
         # Render the output in new HTML page
     return render_template('output.html', variety=variety)

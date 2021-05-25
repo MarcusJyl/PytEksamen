@@ -5,12 +5,14 @@ import model
 
 def getInfos(bird):
     url = "https://www.allaboutbirds.org/guide/" + bird
+    print(bird)
     result = requests.get(url)
     c = result.content
     soup = BeautifulSoup(c)
 
     str1=""
-    article = soup.find("ul", {"class":"LH-menu"}).findAll('span', {"class":"text-label"})
+    
+    article = soup.find("ul", {"class":"LH-menu"}).find_all('span', {"class":"text-label"})
     for element in article:
         element = ''.join(element.findAll(text = True))
         elementList = re.findall('[A-Z][^A-Z]*', element)
@@ -53,9 +55,9 @@ def processBirdName(bird_path):
 
 def modelFinal(path):
     bird = processBirdName(path)
+    print(bird)
     info = getInfos(bird)
     article = getArticle(bird)
 
     return bird + " " + info + article
 
-print(modelFinal("/home/jovyan/PytEksamen/VermillionFlycatcher.jpg"))
