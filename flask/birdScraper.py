@@ -13,7 +13,7 @@ def getInfos(bird):
     soup = BeautifulSoup(c)
 
     str1=""
-    print(soup)
+    # print(soup)
     article = soup.find("ul", {"class":"LH-menu"}).find_all('span', {"class":"text-label"})
     for element in article:
         element = ''.join(element.findAll(text = True))
