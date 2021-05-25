@@ -10,7 +10,13 @@
         <div>
             {{ variety }}
         </div>
-        <img src="{{ url_for('display_image', filename=filename) }}" alt="bird"/>
-        <img src="{{picture}}"/>
+        <div>
+        <h1>Dit</h1>
+        <img src="{{ url_for('display_image', filename=filename) }}" alt="bird" width="400px"/>
+        </div>
+        <div>
+        <h1>Vores</h1>
+        <img src="{{picture}}" width="400px"/>
+        </div>
 </body>
 </html>
