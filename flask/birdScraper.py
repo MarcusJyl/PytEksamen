@@ -6,12 +6,14 @@ import model
 def getInfos(bird):
     url = "https://www.allaboutbirds.org/guide/" + bird
     print(bird)
-    result = requests.get(url)
+    # result = requests.get(url)
+    headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
+    result = requests.get(url, headers=headers)
     c = result.content
     soup = BeautifulSoup(c)
 
     str1=""
-    
+    print(soup)
     article = soup.find("ul", {"class":"LH-menu"}).find_all('span', {"class":"text-label"})
     for element in article:
         element = ''.join(element.findAll(text = True))

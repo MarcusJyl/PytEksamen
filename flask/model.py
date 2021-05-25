@@ -328,11 +328,11 @@ classes = ["Abert's Towhee", 'Acorn Woodpecker',
 
 def load_image(filename):
 	# load the image
-	img = load_img(filename, target_size=(64, 64))
+	img = load_img(filename, target_size=(128, 128))
 	# convert to array
 	img = img_to_array(img)
 	# reshape into a single sample with 3 channels
-	img = img.reshape(1, 64, 64, 3)
+	img = img.reshape(1, 128, 128, 3)
 	# center pixel data
 	return img
  
