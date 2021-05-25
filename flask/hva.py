@@ -4,10 +4,11 @@ import birdScraper
 from flask import Flask, flash, request, redirect, url_for, render_template
 from werkzeug.utils import secure_filename
 
-UPLOAD_FOLDER = 'PytEksamen/flask/uploads'
+UPLOAD_FOLDER = 'PytEksamen/flask/static/uploads/'
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
-
+DISPLAY_FOLDER = 'static/uploads/'
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = DISPLAY_FOLDER
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -56,13 +57,20 @@ def upload_file():
 @app.route('/output/',methods=['GET'])
 def classify_type():
     
-    filename = os.path.join(UPLOAD_FOLDER, request.args.get('filename'))
+    filename = os.path.join(DISPLAY_FOLDER, request.args.get('filename'))
         # Get the output from the classification model
     variety = birdScraper.modelFinal(filename)
 
         # Render the output in new HTML page
-    return render_template('output.html', variety=variety)
-    
+    print(filename)
+
+    return render_template('output.html', variety=variety, filename= request.args.get('filename'))
+
+@app.route('/display/<filename>')
+def display_image(filename):
+	print('display_image filename: ' + filename)
+	return redirect(url_for('static', filename= "uploads/" +filename), code=301)
+
 
 if(__name__=='__main__'):
     app.run(debug=True) 
