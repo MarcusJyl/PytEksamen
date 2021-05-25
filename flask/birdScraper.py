@@ -78,5 +78,5 @@ def modelFinal(path):
     picture = getPicture(bird)
     article = getArticle(bird)
 
-    return bird + " " + info + article + picture
+    return bird + " " + info + article 
 
