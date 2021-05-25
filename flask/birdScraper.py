@@ -65,18 +65,18 @@ def getArticle(bird):
 
 def processBirdName(bird_path):
     bird = model.run_example(bird_path)
-    bird2 = bird.replace(" ", "_")
+    bird2 = bird[0].replace(" ", "_")
     bird3 = bird2.replace("'","")
     bird3 = re.sub(r'(\_\(.*?\))', '', bird3)
     bird4 = bird3.replace(" ","")
-    return bird4
+    return (bird4, bird[1])
 
 def modelFinal(path):
     bird = processBirdName(path)
     print(bird)
-    info = getInfos(bird)
-    picture = getPicture(bird)
-    article = getArticle(bird)
+    info = getInfos(bird[0])
+    picture = getPicture(bird[0])
+    article = getArticle(bird[0])
 
-    return bird + " " + info + article 
+    return (bird[0], info, article, bird[1])
 

@@ -344,6 +344,5 @@ def run_example(bird_path):
 	model = load_model('/home/jovyan/PytEksamen/flask/final_model.h5')
 	# predict the class
 	result = model.predict_classes(img)
-	print(classes[result[0]])
-	print(result[0])    
-	return classes[result[0]]
+ 
+	return (classes[result[0]], model.predict_proba(x = img)[:,result][0][0])

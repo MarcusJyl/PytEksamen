@@ -7,16 +7,25 @@
     <title>Document</title>
 </head>
 <body>
-        <div>
+        <div style="text-align: center">
+            <h1>{{title}}</h1>
+            <p>Sut en fed pik marcus {{procent}}% sikker på du er fucking gay</p>
+            <h2>Info:</h2>
             {{ variety }}
         </div>
-        <div>
-        <h1>Dit</h1>
-        <img src="{{ url_for('display_image', filename=filename) }}" alt="bird" width="400px"/>
+        <p>{{extra}}</p>
+
+        <div style="width: 70%; text-align: center">
+            <div style="float: left">
+                <h1>Dit</h1>
+                <img src="{{ url_for('display_image', filename=filename) }}" alt="bird" width="400px"/>
+            </div>
+            <div style="float: right">
+                <h1>Vores</h1>
+                <img src="{{picture}}" width="400px"/>
+            </div>
         </div>
-        <div>
-        <h1>Vores</h1>
-        <img src="{{picture}}" width="400px"/>
-        </div>
+
+
 </body>
 </html>

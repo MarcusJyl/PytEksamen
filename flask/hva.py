@@ -60,10 +60,10 @@ def classify_type():
     filename = os.path.join(DISPLAY_FOLDER, request.args.get('filename'))
         # Get the output from the classification model
     variety = birdScraper.modelFinal(os.path.join(UPLOAD_FOLDER, request.args.get('filename')))
-    picture = birdScraper.getPicture(birdScraper.processBirdName(os.path.join(UPLOAD_FOLDER, request.args.get('filename'))))
+    picture = birdScraper.getPicture(birdScraper.processBirdName(os.path.join(UPLOAD_FOLDER, request.args.get('filename')))[0])
         # Render the output in new HTML page
 
-    return render_template('output.html', variety=variety,picture=picture,filename= request.args.get('filename'))
+    return render_template('output.html', variety=variety[2], title=variety[0].replace("_", " "), picture=picture, filename= request.args.get('filename'), extra=variety[1], procent=variety[3] * 100)
 
 
 @app.route('/display/<filename>')
