@@ -59,9 +59,9 @@ def classify_type():
     filename = os.path.join(UPLOAD_FOLDER, request.args.get('filename'))
         # Get the output from the classification model
     variety = birdScraper.modelFinal(filename)
-
+    picture = birdScraper.getPicture(birdScraper.processBirdName(filename))
         # Render the output in new HTML page
-    return render_template('output.html', variety=variety)
+    return render_template('output.html', variety=variety,picture=picture)
     
 
 if(__name__=='__main__'):

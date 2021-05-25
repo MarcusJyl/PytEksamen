@@ -30,6 +30,22 @@ def getInfos(bird):
     
     return str1
 
+def getPicture(bird):
+    url = "https://www.allaboutbirds.org/guide/" + bird
+    # result = requests.get(url)
+    headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
+    result = requests.get(url, headers=headers)
+    c = result.content
+    soup = BeautifulSoup(c)
+    pictures = soup.find("ul",{"class":"hero-menu"}).find_all('img')
+    #print(pictures[0])
+    picture = pictures[0]
+    #print(type(picture))
+    pic_urls = picture.get('data-interchange')
+    pic_url = re.findall('[h]\S*jpg', pic_urls)[0]
+    #print(pic_url)
+    return pic_url
+
 def getArticle(bird):
     url = "https://www.allaboutbirds.org/guide/" + bird
     result = requests.get(url)
@@ -59,7 +75,8 @@ def modelFinal(path):
     bird = processBirdName(path)
     print(bird)
     info = getInfos(bird)
+    picture = getPicture(bird)
     article = getArticle(bird)
 
-    return bird + " " + info + article
+    return bird + " " + info + article + picture
 
