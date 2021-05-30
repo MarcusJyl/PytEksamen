@@ -12,10 +12,12 @@ def getInfos(bird):
     c = result.content
     soup = BeautifulSoup(c)
 
-    str1=""
+    str1 = ""
+    listen = []
     # print(soup)
     article = soup.find("ul", {"class":"LH-menu"}).find_all('span', {"class":"text-label"})
     for element in article:
+        str1 = ""
         element = ''.join(element.findAll(text = True))
         elementList = re.findall('[A-Z][^A-Z]*', element)
         i = 0
@@ -26,9 +28,9 @@ def getInfos(bird):
             else:
                 str1 += ele + ": " 
                   
-        str1 += "\n"
-    
-    return str1
+        listen.append(str1)
+        
+    return listen
 
 def getPicture(bird):
     url = "https://www.allaboutbirds.org/guide/" + bird
@@ -52,7 +54,7 @@ def getArticle(bird):
     c = result.content
     soup = BeautifulSoup(c)
 
-    article_text = 'Basic description\n'
+    article_text = ''
     article = soup.find("div", {"class":"speciesInfoCard float clearfix"}).findAll('p')
     for element in article:
         article_text += '\n' + ''.join(element.findAll(text = True))
@@ -79,4 +81,5 @@ def modelFinal(path):
     article = getArticle(bird[0])
 
     return (bird[0], info, article, bird[1])
+
 

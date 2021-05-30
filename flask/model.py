@@ -338,11 +338,10 @@ def load_image(filename):
  
 # load an image and predict the class
 def run_example(bird_path):
-	# load the image
-	img = load_image(bird_path)
-	# load model
-	model = load_model('/home/jovyan/PytEksamen/flask/final_model.h5')
-	# predict the class
-	result = model.predict_classes(img)
- 
-	return (classes[result[0]], model.predict_proba(x = img)[:,result][0][0])
+       # load the image
+       img = load_image(bird_path)
+       # load model
+       model = load_model('/home/jovyan/PytEksamen/flask/final_model.h5')
+       # predict the class
+       result = model.predict_classes(img)
+       return (classes[result[0]], model.predict_proba(x = img)[:,result][0][0])

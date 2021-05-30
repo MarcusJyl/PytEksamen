@@ -1,31 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body>
-        <div style="text-align: center">
-            <h1>{{title}}</h1>
-            <p>Sut en fed pik marcus {{procent}}% sikker på du er fucking gay</p>
-            <h2>Info:</h2>
-            {{ variety }}
-        </div>
-        <p>{{extra}}</p>
 
-        <div style="width: 70%; text-align: center">
-            <div style="float: left">
-                <h1>Dit</h1>
-                <img src="{{ url_for('display_image', filename=filename) }}" alt="bird" width="400px"/>
-            </div>
-            <div style="float: right">
-                <h1>Vores</h1>
-                <img src="{{picture}}" width="400px"/>
-            </div>
+<body>
+    <form>
+        <input type="button" value="Go back!" onclick="history.back()">
+    </form>
+    <div style="text-align: center">
+        <h1>{{title}}</h1>
+        <p>We are {{procent}}% sure the {{title}}, is the bird in your picture. </p>
+        <h2>Info:</h2>
+        {{ variety }}
+    </div>
+    <ul>
+        {% for ele in extra %}
+        <li>{{ ele }}</li>
+        {% endfor %}
+    </ul>
+
+
+    <div style="width: 70%; text-align: center">
+        <div style="float: left">
+            <h2>Your bird</h2>
+            <img src="{{ url_for('display_image', filename=filename) }}" alt="bird" width="400px" />
         </div>
+        <div style="float: right">
+            <h2>Recognised bird</h2>
+            <img src="{{picture}}" width="400px" />
+        </div>
+    </div>
+    <div>
+        {{similar_birds_pictures}}
+        {{similar_birds}}
+    </div>
 
 
 </body>
+
 </html>
