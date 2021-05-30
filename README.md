@@ -8,6 +8,7 @@ List of used technologies:
 Beatuful soup
 flask
 keras
+numpy
 (regular expressions)
 
 HOW TO USE:
