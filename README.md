@@ -17,7 +17,7 @@ HOW TO USE:
 3. Læg modellen i roden af flask mappen.
 4. Åben visual studio code og "attach to running container"
 5. Åben konsollen (hvis du ikke er i jovyan mappen skal du "cd" til jovyan)
-6. Brug denne command for at kører programmet "python PytEksamen/flask/hva.py"
+6. Brug denne command for at kører programmet "python PytEksamen/flask/app.py"
 7. Klik på den url der kommer i terminalen
 8. Upload et billede af en amerikansk fugl og se hvad der sker ;)
 
