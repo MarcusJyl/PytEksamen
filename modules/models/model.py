@@ -16,30 +16,31 @@ import h5py
 import numpy as np
 
 
+
 # define cnn model 
 def define_model(output_size):  
 	model = Sequential()
     #try 224, 248, 496
-	model.add(Conv2D(64, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same', input_shape=(64, 64, 3)))
+	model.add(Conv2D(128, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same', input_shape=(128, 128, 3)))
 	model.add(BatchNormalization())
-	model.add(Conv2D(64, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'))
+	model.add(Conv2D(128, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'))
 	model.add(BatchNormalization())
 	model.add(MaxPooling2D((2, 2)))
 	model.add(Dropout(0.2))
-	model.add(Conv2D(128, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'))
+	model.add(Conv2D(256, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'))
 	model.add(BatchNormalization())
-	model.add(Conv2D(128, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'))
+	model.add(Conv2D(256, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'))
 	model.add(BatchNormalization())
 	model.add(MaxPooling2D((2, 2)))
 	model.add(Dropout(0.3))
-	model.add(Conv2D(256, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'))
+	model.add(Conv2D(512, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'))
 	model.add(BatchNormalization())
-	model.add(Conv2D(256, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'))
+	model.add(Conv2D(512, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'))
 	model.add(BatchNormalization())
 	model.add(MaxPooling2D((2, 2)))
 	model.add(Dropout(0.4))
 	model.add(Flatten())
-	model.add(Dense(256, activation='relu', kernel_initializer='he_uniform'))
+	model.add(Dense(512, activation='relu', kernel_initializer='he_uniform'))
 	model.add(BatchNormalization())
 	model.add(Dropout(0.5))
 	model.add(Dense(output_size, activation='softmax'))
@@ -48,11 +49,15 @@ def define_model(output_size):
 	model.compile(optimizer=opt, loss='categorical_crossentropy', metrics=['accuracy'])
 	return model
 
+
+
+
+
 # run the test harness for evaluating a model
 def run_test_harness(images, targets, epochs, output_size):
 # define model
-	# model = define_model(output_size)
-	model = load_model('final_model.h5')
+	model = define_model(output_size)
+	# model = load_model('final_model.h5')
 	# create data generator
 	datagen = ImageDataGenerator(width_shift_range=0.1, height_shift_range=0.1, horizontal_flip=True)
 #     featurewise_center=True

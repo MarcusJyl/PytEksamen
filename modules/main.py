@@ -21,7 +21,7 @@ targets = np.array(encoder.fit_transform(targets).toarray())
 # print(targets)
 print([t for t in targets[:10]])
 
-model.run_test_harness(images, targets, 1000, len(target_labels))
+model.run_test_harness(images, targets, 1500, len(target_labels))
 
 print(repr(target_labels))
 print(len(target_labels))
